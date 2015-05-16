@@ -1,0 +1,35 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>decoder</title>
+		<style type="text/css">
+		td {
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+		<form action="/compute" method="post" target="result">
+			<table border=1 cellspacing=1 cellpadding=1 style="width: 100%">
+			<tr><td>text</td><td>words</td></tr>
+			<tr>
+			<td style="width: 70%; text-align: center;">
+				<textarea style="width: 97%;height: 400px;" name="text">Syððan wæs geworden þæt he ferde þurh þa ceastre and þæt castel: godes rice prediciende and bodiende. and hi twelfe mid. And sume wif þe wæron gehælede of awyrgdum gastum: and untrumnessum: seo magdalenisce maria ofþære seofan deoflu uteodon: and iohanna chuzan wif herodes gerefan: and susanna and manega oðre þe him of hyra spedum þenedon.</textarea>
+			</td>
+			<td style="width: 30%">
+				<textarea style="width: 97%; height: 400px;" name="words">geworden castel: þæt</textarea>
+			</td>
+			</tr>
+			<tr><td>
+			stop symbols: <input type="text" name="stop_symbols" value="'.,!?;-()"><br/>
+			stop words: <input type="text" name="stop_words" value=""><br/>
+			max Levenshtein distance: <input type="text" name="lev" value="3"><br/>
+			</td><td><input type=submit value="calculate"></td></tr>
+			</table>
+		</form>
+		<iframe src="/compute" style="width: 100%; height: 400px;" id="result" name="result">
+		</iframe>
+	</body>
+</html>
