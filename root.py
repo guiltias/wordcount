@@ -4,6 +4,7 @@
 from flask import Flask, render_template, request, redirect
 
 from Levenshtein import distance
+import re
 
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
@@ -39,11 +40,23 @@ def compute():
         return render_template("result.html", result=[])
     elif request.method=="POST":
 	original_text = request.form["text"]
-        #text = canonize(original_text, request.form["stop_symbols"], request.form["stop_words"])
+	
         text = original_text.split() 
- 	words = request.form["words"].split()
+ 	words_pre = request.form["words"].split()
 	l = int(request.form["lev"])
-	print "dist: ", l
+	criteria_raw = request.form["criteria"].split()
+	criteria = dict()
+	for cr in criteria_raw:
+		cr_1,cr_2 = cr.split("=")
+		criteria[cr_1] = cr_2
+	
+	words = []
+	for word in words_pre:
+		word = word.lower()
+		for crit in criteria:
+			word = word.replace(crit, criteria[crit])
+		words.append(word)
+		
 	marked_text = ""
 	
 	# remove duplicates
@@ -58,13 +71,13 @@ def compute():
 	for word in text:
  		tmp_word = word
 		word = word.lower()
+		for crit in criteria:
+			word = word.replace(crit, criteria[crit])
 		for sample in words:
-			sample = sample.lower()
 			stripped_word = substring(word, request.form["stop_symbols"])
 			d = distance(sample, stripped_word)
 			diff = len(substring(stripped_word, sample))
 			if d<=l and len(stripped_word) - diff >= 2:
-				#print "escape: " + (substring(word,sample)).encode('utf-8') + " " + word.encode('utf-8') + " "+ sample.encode('utf-8') + " " + str(diff)
 				result[d][sample] += 1
 				tmp_word = "<b>" + tmp_word + " ("+sample+", d=" + str(d)+")</b> "
 		marked_text += tmp_word+" "
