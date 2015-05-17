@@ -70,11 +70,11 @@ def compute():
 		marked_text += tmp_word+" "
         return render_template("result.html", result=result, overview=marked_text)
 
-#app.run(host='0.0.0.0', port=8080)
+app.run(host='0.0.0.0', port=8080)
 
 
 
-http_server = HTTPServer(WSGIContainer(app))
-http_server.listen(8080)
-IOLoop.instance().start()
+#http_server = HTTPServer(WSGIContainer(app))
+#http_server.listen(8080)
+#IOLoop.instance().start()
 

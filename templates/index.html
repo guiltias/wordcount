@@ -23,9 +23,12 @@
 			</td>
 			</tr>
 			<tr><td>
-			stop symbols: <input type="text" name="stop_symbols" value="'.,!?;-()"><br/>
-			stop words: <input type="text" name="stop_words" value=""><br/>
-			max Levenshtein distance: <input type="text" name="lev" value="3"><br/>
+				<table cellspacing=0 cellpadding=0 style="width: 100%">
+					<tr><td style="text-align:right; width: 30%;">stop symbols: </td><td style="text-align:left; width: 70%;"><input type="text" name="stop_symbols" value="'.,!?;-()"></td></tr>
+					<tr><td style="text-align:right; width: 30%;">stop words: </td><td style="text-align:left; width: 70%;"><input type="text" name="stop_words" value=""></td></tr>
+					<tr><td style="text-align:right; width: 30%;">max Levenshtein distance: </td><td style="text-align:left; width: 70%;"><input type="text" name="lev" value="3"></td></tr>
+					<tr><td style="text-align:right; width: 30%;">criteria: </td><td style="text-align:left; width: 70%;"><textarea name="criteria" style="width: 100%; height: 150px;">y=i k=c u=v w=u þ=th ð= =g</textarea></td></tr>
+				</table>
 			</td><td><input type=submit value="calculate"></td></tr>
 			</table>
 		</form>
