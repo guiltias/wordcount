@@ -77,17 +77,20 @@ def compute():
 			stripped_word = substring(word, request.form["stop_symbols"])
 			d = distance(sample, stripped_word)
 			diff = len(substring(stripped_word, sample))
-			if d<=l and len(stripped_word) - diff >= 2:
+			if sample in stripped_word and stripped_word.index(sample)==0:
+				result[0][sample] += 1
+				tmp_word = "<b>" + tmp_word + " ("+sample+" shows in)</b> "
+			elif d<=l and len(stripped_word) - diff >= 2:
 				result[d][sample] += 1
 				tmp_word = "<b>" + tmp_word + " ("+sample+", d=" + str(d)+")</b> "
 		marked_text += tmp_word+" "
         return render_template("result.html", result=result, overview=marked_text)
 
-app.run(host='0.0.0.0', port=8080)
+#app.run(host='0.0.0.0', port=8080)
 
 
 
-#http_server = HTTPServer(WSGIContainer(app))
-#http_server.listen(8080)
-#IOLoop.instance().start()
+http_server = HTTPServer(WSGIContainer(app))
+http_server.listen(8080)
+IOLoop.instance().start()
 
